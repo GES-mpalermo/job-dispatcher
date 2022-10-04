@@ -3,11 +3,22 @@
 Welcome to the introduction to Jobdispatcher! In this page you will find all the information to get you started and launch your first batch of parallel jobs.
 
 This introduction will be structured as follows:
-1. [Installation](#installation)
-2. [My first job](#my-first-job)
-3. [Jobs with arguments and retrieving results](#jobs-with-arguments-and-retrieving-results)
-4. [Running multiple jobs](#running-multiple-jobs)
-5. [Requesting cores](#requesting-cores) 
+1. [Library purpose](#library-purpose)
+2. [Installation](#installation)
+3. [My first job](#my-first-job)
+4. [Jobs with arguments and retrieving results](#jobs-with-arguments-and-retrieving-results)
+5. [Running multiple jobs](#running-multiple-jobs)
+6. [Requesting cores](#requesting-cores) 
+
+
+## Library purpose
+JobDispatcher allows the user to easily execute several functions in a parallel fashion without the trouble of writing multiprocessing or threading code
+and taking care of the available resources on the system.
+
+It's ideal use case is e.g. running a batch of independent OpenMP executables. The user can then simply define functions that launch
+the executables with appropriate inputs and provide them to JobDispatcher. Then, JobDispatcher will make sure that enough concurrent jobs are running 
+at all time to fully exploit the available system resources. If resources are freed due to completed jobs, new jobs that fit the available resources
+will be launched automatically until all jobs are completed.
  
 ## Installation
 The easiest way to install the latest release of JobDispatcher is through the conda package manager:

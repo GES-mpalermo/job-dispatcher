@@ -6,7 +6,9 @@ logger = logging.getLogger(__name__)
 
 
 class JobBalancer:
-    """ """
+    """
+    Determines which jobs should be provided next to the engine.
+    """
 
     def __init__(self, maxcores):
         """

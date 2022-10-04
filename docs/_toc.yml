@@ -19,3 +19,4 @@ chapters:
       - file: API/job-balancers
       - file: API/engines
 - file: contributors-guide
+- file: release-notes
