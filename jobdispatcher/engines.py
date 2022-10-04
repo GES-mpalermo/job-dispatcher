@@ -1,10 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Fri Aug 12 09:56:16 2022
-
-@author: mpalermo
-"""
 from abc import ABC, abstractmethod
 import threading
 from multiprocessing import Process, active_children, Manager, Condition
@@ -30,7 +23,7 @@ class Engine(ABC):
         pass
 
 
-class MultithreadEngine(Engine):
+class ThreadingEngine(Engine):
     def __init__(self, cores_per_job=-1):
         self._results = {}
         self._completed_jobs = {}
@@ -39,8 +32,8 @@ class MultithreadEngine(Engine):
         self._running_jobs = {}
         self._cores_per_job = cores_per_job
         self._threads = []
-        self.name = "multithreading"
-        logger.info("Using multithreading engine")
+        self.name = "threading"
+        logger.info("Using threading engine")
         self._resource_available = threading.Condition()
 
     @property
@@ -108,9 +101,7 @@ class MultithreadEngine(Engine):
             os.environ["OMP_NUM_THREADS"] = str(cores)  # set maximum cores per job
 
             logger.debug(f"Starting job {job_name}")
-            result: object = user_function(
-                *args, **kwargs
-            )  # run function and catch output
+            result: object = user_function(*args, **kwargs)  # run function and catch output
             self._results[job_name] = result
             finished_job = self._running_jobs.pop(job_id)
             self._completed_jobs[job_id] = finished_job
@@ -145,7 +136,7 @@ class MultithreadEngine(Engine):
         return self._cores_per_job
 
 
-class MultiprocessEngine(Engine):
+class MultiprocessingEngine(Engine):
     def __init__(self, cores_per_job=-1):
         self._jobs = []
         self._job_counter = 0
@@ -207,9 +198,7 @@ class MultiprocessEngine(Engine):
             os.environ["OMP_NUM_THREADS"] = str(cores)  # set maximum cores per job
 
             logger.debug(f"Starting job {job_name}")
-            result: object = user_function(
-                *args, **kwargs
-            )  # run function and catch output
+            result: object = user_function(*args, **kwargs)  # run function and catch output
             results.put_nowait((job_name, job_id, result))
 
             with resource_available:

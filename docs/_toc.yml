@@ -4,5 +4,18 @@
 format: jb-book
 root: intro
 chapters:
-- file: markdown
-- file: notebooks
+- file: getting-started
+- file: user-guide/intro
+  sections:
+     #- file: user-guide/intro
+      - file: user-guide/job-definition
+      - file: user-guide/job-scheduling
+      - file: user-guide/job-running
+      - file: user-guide/logger
+- file: api-reference
+  sections:
+      - file: API/jobs
+      - file: API/processor
+      - file: API/job-balancers
+      - file: API/engines
+- file: contributors-guide
